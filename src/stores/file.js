@@ -9,9 +9,11 @@ export const useFileStore = defineStore('file', {
     state: ()=> {
         return {
             files:[],
-        },    
-        {persist:true,}
+            file,
+        }    
+       
     },
+    persist:true,
 
     actions: {
         async fetchFiles() {
@@ -38,14 +40,15 @@ export const useFileStore = defineStore('file', {
             // this.fetchFiles();
             // this.fetchfiles();
             // state.files = [] 
+            
             console.log("in getters", toRaw(state.files))
             return toRaw(state.files)
         },
         getFilebyID(state, id) {
             const songArray = toRaw(state.files )
             console.log("in getFileByID",songArray)
-            const song = toRaw(state.files).find(element => element.tags[0].id)            
-            return song
+            store.file = toRaw(state.files).find(element => element.tags[0].id)            
+            return toRaw(state.file)
 
         }
     },
