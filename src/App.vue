@@ -1,7 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
-import LandingPageView from './views/LandingPageView.vue';
 </script>
 
 <template>
@@ -85,3 +84,4 @@ nav a:first-of-type {
   }
 } */
 </style>
+./views/Homeview.vue

@@ -6,11 +6,14 @@
       </div>
       <div>
         <nav class="primary-navigation right-align">
-            <a class="active" href="#home">Home</a>
-            <a href="#tuner">Tuner</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
+            <RouterLink class="active" to="/">Home</RouterLink>
+            <RouterLink to="/tuner">Tuner</RouterLink>
+            <RouterLink to="/contact">Contact</RouterLink>
+            <RouterLink to="/about">About</RouterLink>
         </nav>
+      </div>
+      <div class="logout-button">
+        <a href="http://localhost:8000/accounts/logout">Logout</a>
       </div>
     </div>
 
@@ -20,7 +23,16 @@
 
 
 <script>
+import { useUserStore } from '@/stores/user';
+export default{
+  setup(){
+   const userStore = useUserStore()
+   return {userStore}
+},
 
+
+
+}
 
 
 </script>
@@ -34,7 +46,7 @@
   /* flex-direction: row; */
   /* justify-content: space-between; */
   width:100%;
-  background: rgb(44, 41, 42);
+  background: #ec0707;
   z-index: 100;
   /* margin: 0 auto; */
 }
@@ -46,8 +58,8 @@
   /* position: fixed; */
   top:0;
   left:0;
-  padding: 8px 60px;
-  border:4px;
+  padding: 16px 60px;
+  border:8px;
   /* justify-content: space-between; */
   align-items: center;
   z-index: 100;
@@ -60,7 +72,7 @@
   font-size: 30px;
   left:auto;
   right: 0;
-  color:rgb(103, 105, 113);
+  color:rgb(17, 20, 32);
   font-weight: 400;
   justify-content:flex-end;
   /* align-items:flex-end; */

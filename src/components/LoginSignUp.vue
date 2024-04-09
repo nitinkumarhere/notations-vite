@@ -42,12 +42,11 @@
 
 
 
- <script >
+ <script set >
  import {  onMounted } from 'vue';
  import { useRouter } from "vue-router";
  import router from '../router'
-
-//  import axios from 'axios'
+import { useUserStore } from '@/stores/user';
 import axios from 'axios';
 // import Cookies from 'js-cookie';
 // import Cookies from 'js-cookie'
@@ -62,6 +61,7 @@ axios.defaults.withCredentials = true
 //     return response
 // })
 // axios.defaults.headers.common['X-CSRF-TOKEN'] = Cookies.get()
+import { storeToRefs } from 'pinia'
 
 
 axios.interceptors.request.use(function (config) {
@@ -69,19 +69,13 @@ axios.interceptors.request.use(function (config) {
   return config
 })
 // const router = useRouter()
- export default {
-   
-//    props: {
+export default {
 
-// registerActive: false,
-// emailLogin: "",
-// passwordLogin: "",
-// emailReg: "",
-// passwordReg: "",
-// confirmReg: "",
-// emptyFields: false,
-// token:""
-// },
+setup(){
+   const userStore = useUserStore()
+   return {userStore}
+},
+
 data() {
    return {
       registerActive: false,
@@ -96,16 +90,7 @@ data() {
 
    }
 },
-   // props: {
 
-   //    registerActive: false,
-   //    emailLogin: "",
-   //    passwordLogin: "",
-   //    emailReg: "",
-   //    passwordReg: "",
-   //    confirmReg: "",
-   //    emptyFields: false
-   // },
    
    methods: {
       // getCSRFToken() {
@@ -167,24 +152,32 @@ data() {
 
                // })
                // const csrftoken = this.getCSRFToken()
-               const res = await axios.post(url, {
-                  username: this.emailLogin,
-                  password: this.passwordLogin
-               },
-                {
-                  headers: {
-                     'Content-Type': 'application/json',
-                     'X-CSRFToken': self.csrftoken
-                     // 'Cookie': "FJwu1xANJMtqnJHNtcLFthgXKhNqzhNV"
-                  }
-               }
-               ).then(  res => {
+               const res =  this.userStore.signIn(this.emailLogin, this.passwordLogin)
+               this.success=true
+               this.$router.push({path:'/library'});
+
+
+               // const res = await axios.post(url, {
+               //    username: this.emailLogin,
+               //    password: this.passwordLogin
+               // },
+               //  {
+               //    headers: {
+               //       'Content-Type': 'application/json',
+               //       'X-CSRFToken': self.csrftoken
+               //       // 'Cookie': "FJwu1xANJMtqnJHNtcLFthgXKhNqzhNV"
+               //    }
+               // })
+               await res
+               console.log(res)
+               .then(  res => {
                   if(res.status==200){
                      console.log('Login successful:', res.data);
                      
                      this.success = true 
                      this.isAuthenticated = true
-                     this.$router.go({name:'library'});
+                     console.log("kdjfhgs")
+                     this.$router.push({path:'/library'});
                   }
                   else {
                      this.error = 'Invalid username or password';

@@ -1,7 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import LandingPageView from '../views/LandingPageView.vue'
 import Library from '../views/LibraryView.vue'
+import UploadFile from '../components/UploadFile.vue'
+import LoginSignUp from '../components/LoginSignUp.vue'
+import LibraryContent from '../components/LibraryContent.vue'
+import TunerView from '@/views/TunerView.vue'
+import ContactView from '@/views/ContactView.vue'
+import SheetMusic from '../components/SheetMusic.vue'
+import SheetmusicView from '@/views/SheetmusicView.vue'
+import LibraryView from '../views/LibraryView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,7 +17,18 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue'),
+      children:LoginSignUp,
+    },
+    {
+      path: '/tuner',
+      name: 'tuner',
+      component: () => import('../views/TunerView.vue'),
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('../views/ContactView.vue'),
     },
     {
       path: '/about',
@@ -20,23 +39,27 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/landing',
-      name: 'landing',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/LandingPageView.vue')
-    },
-    {
       path: '/library',
       name: 'library',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       // component: () => import('../views/LibraryView.vue')
-      component: Library,
-      // children:
-    }
+      component: LibraryView
+      // children: UploadFile,
+    },
+    {
+      path: '/sheetmusic/:f',
+      name: 'Notations',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      // component: () => import('../views/LibraryView.vue')
+    component:() => import('../views/SheetmusicView.vue')
+      // props:true, 
+      // children: UploadFile, LibraryContent
+    },
+
 
   ]
 })

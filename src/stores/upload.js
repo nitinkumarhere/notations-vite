@@ -1,27 +1,32 @@
-import axios from "axios";
 import { defineStore } from 'pinia'
+// import {HTTP} from '../http-common'
 
 // import cookie from 'vue-cookies'
+import axios from 'axios'
 
-const uploadUrl = "http://127.0.0.1:8000/upload/"
+const uploadUrl = "/upload/"
 export const useUploadStore = defineStore('upload', {
     state: () => ({
 
 
     }),
-    getters: {
+    // getters: {
 
-    },
+    // },
 
     actions: {
-        async uploadFile(context, formData) {
-            await axios.post(uploadUrl,
-                formData)
+        async uploadFile(formData) {
+            let config = { headers: { 'Content-Type': 'multipart/form-data', } }
 
+            const response = await axios.post(
+                uploadUrl,
+                formData,
+                // config,
+            
+            )
+            console.log(response.data)
 
+            }
         },
     }
-    
-
-
-})  
+) 

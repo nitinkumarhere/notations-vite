@@ -1,27 +1,27 @@
 <script>
 import UploadFile from '../components/UploadFile.vue'
+import { RouterLink } from 'vue-router';
 export default {
+    components:{UploadFile}
 
 }
 </script>
 <template>
-    <p>
-        side menu
-    </p>
     <div class="side-menu">
-        <ul>
-            <li>
-                <a>
-                    <router-link to='/library' class="button is-black is-fullwidth">
-                        Library
-                    </router-link>
-                </a>
-            </li>
+        
 
-            <li>
-                <a><UploadFile/></a>      
-            </li>
-        </ul>
+        <a>
+            <RouterLink to='/library' class="button">
+                Library
+            </RouterLink>
+        </a>
+
+
+
+        <a><UploadFile/></a>      
+
+
 
     </div>
 </template>
+
